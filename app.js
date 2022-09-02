@@ -40,7 +40,7 @@ const showNews = (data) => {
     const div = document.createElement("div");
     div.classList.add("col");
     div.innerHTML = `
-        <div onClick=myfunction('${news._id}') class="card mb-3" style="max-width: 100%;" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <div id="card" onClick=modal('${news._id}') class="card mb-3" style="max-width: 100%;" data-bs-toggle="modal" data-bs-target="#exampleModal">
          <div class="row g-0 p-2">
           <div class="col-md-4">
             <img src="${news.image_url}" class="img-fluid rounded-start" alt="...">
@@ -75,13 +75,24 @@ const showNews = (data) => {
     </div>
         `;
     showNews.appendChild(div);
-    console.log(news);
   });
 };
 // modal function 
-function myfunction(data){
+function modal(data){
+    const url =`https://openapi.programming-hero.com/api/news/${data}`
+    fetch(url)
+    .then(res => res.json())
+    .then(data => showModal(data.data[0]))
+}
+// show modal data 
+const showModal = data => {
     const modal = document.getElementById("modal");
+    const modalTitle = document.getElementById("exampleModalLabel");
     console.log(data)
+    modalTitle.innerText=data.title
+    modal.innerHTML = `
+        <p>badge: ${data.rating.badge}</p>
+    `
 }
 showData("02")
 category();
