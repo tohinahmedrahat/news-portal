@@ -1,0 +1,11 @@
+.bg-color{
+    background-color: #F6F6F6;
+}
+.category-btn{
+    cursor: pointer;
+    margin-left: 37px;
+}
+.category-btn:hover{
+    color: #5D5FEF;
+    background-color: #eeefff;
+}
