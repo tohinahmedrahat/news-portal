@@ -2,7 +2,8 @@
 function category() {
   fetch("https://openapi.programming-hero.com/api/news/categories")
     .then((res) => res.json())
-    .then((data) => displayCategory(data.data));
+    .then((data) => displayCategory(data.data))
+    .catch(error => console.log(error))
 }
 
 // show all category to ui
