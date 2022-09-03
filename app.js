@@ -29,7 +29,8 @@ function showData(data, name) {
   const url = ` https://openapi.programming-hero.com/api/news/category/${data}`;
   fetch(url)
     .then((res) => res.json())
-    .then((data) => showNews(data.data, name));
+    .then((data) => showNews(data.data, name))
+    .catch(error => console.log(error))
 }
 
 // show all news
@@ -116,7 +117,8 @@ function modal(data) {
   const url = `https://openapi.programming-hero.com/api/news/${data}`;
   fetch(url)
     .then((res) => res.json())
-    .then((data) => showModal(data.data[0]));
+    .then((data) => showModal(data.data[0]))
+    .catch(error => console.log(error))
 }
 // show modal data
 const showModal = (data) => {
