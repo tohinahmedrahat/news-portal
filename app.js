@@ -116,5 +116,5 @@ function spinners (isLoading){
 
 }
 
-showData("02")
+showData("02","Regular News")
 category();
