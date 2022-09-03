@@ -45,9 +45,10 @@ const showNews = (data, name) => {
   showlength.innerText = data.length;
   categoryName.innerText = name;
   const showNews = document.getElementById("showNews");
+  const error = document.getElementById("error");
   showNews.innerHTML = "";
   if(data.length == 0){
-    console.log("nodata found")
+    error.classList.remove("d-none")
     spinners(false)
   }else{
     data.map((news) => {
@@ -102,6 +103,7 @@ const showNews = (data, name) => {
        </div>
       </div>
           `;
+          error.classList.add("d-none")
       showNews.appendChild(div);
       spinners(false);
     });
