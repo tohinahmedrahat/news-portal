@@ -7,6 +7,7 @@ function category() {
 
 // show all category to ui
 const displayCategory = (data) => {
+  spinners(true)
   const ul = document.getElementById("category");
   data.news_category.map((data) => {
     const li = document.createElement("li");
@@ -15,25 +16,30 @@ const displayCategory = (data) => {
     a.classList.add("nav-link");
     a.classList.add("category-btn");
     a.onclick = function () {
-      showData(data.category_id);
+      showData(data.category_id,data.category_name);
     };
     a.innerText = data.category_name;
     li.appendChild(a);
     ul.appendChild(li);
   });
+  spinners(false)
 };
 // show all news by category
-function showData(data) {
+function showData(data,name) {
   const url = ` https://openapi.programming-hero.com/api/news/category/${data}`;
   fetch(url)
     .then((res) => res.json())
-    .then((data) => showNews(data.data));
+    .then((data) => showNews(data.data,name));
 }
 
 // show all news
-const showNews = (data) => {
+const showNews = (data,name) => {
+  // spinners add 
+  spinners(true)
   const showlength = document.getElementById("showNewslength");
+  const categoryName = document.getElementById("categoryName");
   showlength.innerText = data.length;
+  categoryName.innerText = name;
   const showNews = document.getElementById("showNews");
   showNews.innerHTML = "";
   data.map((news) => {
@@ -76,6 +82,7 @@ const showNews = (data) => {
         `;
     showNews.appendChild(div);
   });
+  spinners(true)
 };
 // modal function 
 function modal(data){
@@ -86,13 +93,28 @@ function modal(data){
 }
 // show modal data 
 const showModal = data => {
+  spinners(true)
     const modal = document.getElementById("modal");
     const modalTitle = document.getElementById("exampleModalLabel");
     console.log(data)
     modalTitle.innerText=data.title
     modal.innerHTML = `
-        <p>badge: ${data.rating.badge}</p>
+        <p>Author: ${data.author.name}</p>
+        <p>Badge: ${data.rating.badge}</p>
+        <p>Rating: ${data.rating.number}</p>
     `
+    spinners(false)
 }
+// add spinners
+function spinners (isLoading){
+  const spinner = document.getElementById("spinners");
+  if(isLoading){
+    spinner.classList.remove("d-none")
+  }else{
+    spinner.classList.add("d-none")
+  }
+
+}
+
 showData("02")
 category();
