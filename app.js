@@ -3,7 +3,7 @@ function category() {
   fetch("https://openapi.programming-hero.com/api/news/categories")
     .then((res) => res.json())
     .then((data) => displayCategory(data.data))
-    .catch(error => console.log(error))
+    .catch(error => loadError(error))
 }
 
 // show all category to ui
@@ -31,7 +31,7 @@ function showData(data, name) {
   fetch(url)
     .then((res) => res.json())
     .then((data) => showNews(data.data, name))
-    .catch(error => console.log(error))
+    .catch(error => loadError(error))
 }
 
 // show all news
@@ -119,7 +119,7 @@ function modal(data) {
   fetch(url)
     .then((res) => res.json())
     .then((data) => showModal(data.data[0]))
-    .catch(error => console.log(error))
+    .catch(error => loadError(error))
 }
 // show modal data
 const showModal = (data) => {
@@ -144,6 +144,10 @@ function spinners(isLoading) {
     spinner.classList.add("d-none");
   }
 }
-
+// add load error 
+const loadError = err =>{
+  const showErro = document.getElementById("loadErro")
+  showErro.innerText = err
+}
 showData("02", "Regular News");
 category();
